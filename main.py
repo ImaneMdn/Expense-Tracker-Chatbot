@@ -103,6 +103,7 @@ def complete_expense(parameters: dict, session_id: str):
     return JSONResponse(content={
             "fulfillmentText": fulfillment_text
     })
+    
 
 def save_to_db(expense:list): 
     next_expense_id = db.get_next_expense_id() 
@@ -130,26 +131,21 @@ def add_expense(parameters: dict, session_id: str):
             'amount': amounts,
             'date': date
         }
-        
+    
     if session_id in inprogress_expense:
         inprogress_expense[session_id].append(new_expense_dict)
     else:
         inprogress_expense[session_id] = [new_expense_dict]
-        
-        
+
     expense_str = generic_helper.get_str_from_expense_dict(inprogress_expense[session_id])   
     if expense_str:
         expense_list_str = "\n".join(f"- {expense}" for expense in expense_str)
-        fulfillment_text = f"Thank you for your expenses. You submitted the following:\n{expense_list_str}\nDo you need anything else?"
+        fulfillment_text = f"Thank you for your expense. You submitted the following:\n{expense_list_str}\nDo you need anything else?"
     
     return JSONResponse(content={
             "fulfillmentText": fulfillment_text
-    })
-    
-    
-
-
-
+        }
+    )
 
 def save_to_db_budget(budget:list):  
     next_budget_id = db.get_next_budget_id() 
