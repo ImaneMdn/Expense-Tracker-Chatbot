@@ -270,7 +270,7 @@ def query_expense_handler(parameters, session_id):
         else:
             date_range_str = ""
 
-        fulfillment_text = f"Your total spending{' on ' + category if category else ''}{date_range_str} is {total_spending}£.\nDo you need anything else?"
+        fulfillment_text = f"Your total spending{' on ' + category if category else ''}{date_range_str} is {total_spending}$.\nDo you need anything else?"
     else:
         fulfillment_text = "Sorry, I couldn't retrieve the information at the moment."
 

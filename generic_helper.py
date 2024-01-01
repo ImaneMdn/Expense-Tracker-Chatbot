@@ -22,7 +22,7 @@ def get_str_from_expense_dict(expense_list: list):
                 elif key == 'category':
                     result.append(f"{key.capitalize()}: {expense_dict[key]}")
                 else:
-                    result.append(f"{key.capitalize()}: {float(expense_dict[key])}£")
+                    result.append(f"{key.capitalize()}: {float(expense_dict[key])}$")
 
         result_list.append(", ".join(result))
 
@@ -42,7 +42,7 @@ def get_str_from_budget_dict(budget_list: list):
                 elif key == 'category':
                     result.append(f"{key.capitalize()}: {budget_dict[key]}")
                 else:
-                    result.append(f"{key.capitalize()}: {float(budget_dict[key])}£")
+                    result.append(f"{key.capitalize()}: {float(budget_dict[key])}$")
 
         result_list.append(", ".join(result))
 

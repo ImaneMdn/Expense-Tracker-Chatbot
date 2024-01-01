@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #3498db;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .category {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category:hover {
+            background-color: #2980b9;
+        }
+        .chat-bot {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            border: none;
+        }           
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Expense Tracker Chatbot</h1>
+    </header>
+
+    <section>
+        <h2>Expense Categories</h2>
+
+        <div class="categories">
+            <div class="category">Electronics</div>
+            <div class="category">Snacks</div>
+            <div class="category">Entertainment</div>
+            <div class="category">Personal Care</div>
+            <div class="category">Fuel</div>
+            <div class="category">Lunch</div>
+            <div class="category">Breakfast</div>
+            <div class="category">Clothing</div>
+            <div class="category">Household Items</div>
+            <div class="category">Dining Out</div>
+            <div class="category">Transportation</div>
+            <div class="category">Healthcare</div>
+            <div class="category">Utilities</div>
+            <div class="category">Rent</div>
+            <div class="category">Insurance</div>
+            <div class="category">Education</div>
+            <div class="category">Fitness</div>
+            <div class="category">Gifts</div>
+            <div class="category">Travel</div>
+            <div class="category">Subscriptions</div>
+            <div class="category">Charity</div>
+            <div class="category">Pets</div>
+            <div class="category">Groceries</div>
+            <div class="category">Dinner</div>
+        </div>
+    </section>
+    <iframe class="chat-bot" width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/bb04b3ea-090c-41ee-801e-5ba251b17e6e"></iframe>
+</body>
+</html>
