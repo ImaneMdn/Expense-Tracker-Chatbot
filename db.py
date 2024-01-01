@@ -5,7 +5,7 @@ global cnx
 cnx = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='Imane2003.',
+        password='root',
         database='expense_tracker'
     )
 
