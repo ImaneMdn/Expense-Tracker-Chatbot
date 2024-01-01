@@ -5,7 +5,7 @@ global cnx
 cnx = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='Imane2003.',
+        password='root',
         database='expense_tracker'
     )
 
@@ -91,3 +91,40 @@ def get_next_budget_id():
         return 1
     else:
         return result + 1
+    
+
+def query_expense(category, date, start_date, end_date):
+    sql_query = """
+        SELECT SUM(e.amount)
+        FROM expense e
+        INNER JOIN category c ON e.category_id = c.category_id
+        WHERE 1=1
+    """
+
+    if start_date and end_date:
+        sql_query += f" AND e.expense_date BETWEEN '{start_date}' AND '{end_date}'"
+    if category:
+        sql_query += f" AND c.category_name = '{category}'"
+    
+    if date:
+        sql_query += f" AND e.expense_date = '{date}'"
+    
+    try:
+        cursor = cnx.cursor()
+        cursor.execute(sql_query)
+        total_spending = cursor.fetchone()[0]
+        cursor.close()
+
+        return total_spending
+
+    except mysql.connector.Error as err:
+        print(f"Error querying expenses: {err}")
+        cnx.rollback()
+        
+        return -1
+    
+    except Exception as e:
+        print(f"An error occured : {e}")
+        cnx.rollback()
+        
+        return -1

@@ -28,7 +28,8 @@ async def handle_request(request: Request):
         'expense.complete-context:ongoing-expense': complete_expense,
         'SetBudget.add - context: ongoing-budget': set_budget,
         'SetBudget.complete-context:ongoing-expense': complete_budget,
-        'SetBudget.remove-context:ongoing-expense': remove_budget
+        'SetBudget.remove-context:ongoing-expense': remove_budget,
+        'QueryExpense': query_expense_handler,
         
     }
     
@@ -74,7 +75,6 @@ def remove_expense(parameters: dict, session_id: str):
     if not current_expense:
         fulfillment_text += ' Your expense is empty!'
 
-    # If there are remaining expenses, display them
     else:
         expense_str = generic_helper.get_str_from_expense_dict(current_expense)
         fulfillment_text += f' Here is what is left in your new expense: {expense_str}'
@@ -250,53 +250,30 @@ def remove_budget(parameters: dict, session_id: str):
         "fulfillmentText": fulfillment_text
     })
 
-# def remove_budget(parameters: dict, session_id: str):
-#     if session_id not in inprogress_budget:
-#         return JSONResponse(content={
-#             "fulfillmentText": "I'm having trouble finding your budget. Sorry! Can you place a new budget please?"
-#         })
-
-#     current_budget = inprogress_budget[session_id]
-#     categories_to_remove = parameters.get("categories", [])
-#     print('----')
-#     print(categories_to_remove)
+def query_expense_handler(parameters, session_id):
+    category = parameters['category']
+    date_parameters = parameters["date"]
+    start_date = None
+    end_date = None
     
-#     removed_budget = []
-#     no_such_budget = []
-    
-#     print(current_budget)
-#     print(categories_to_remove)
-    
-#     category_found = False
-#     for budget in current_budget:
-#             if budget['category'] == categories_to_remove:
-#                 removed_budget.append(categories_to_remove)
-#                 current_budget.remove(budget)
-#                 category_found = True
-#                 break
+    if date_parameters:
+       start_date = parameters["date"]["startDate"].split("T")[0]
+       end_date = parameters["date"]["endDate"].split("T")[0]
+       total_spending = db.query_expense(category, date= None, start_date=start_date, end_date=end_date)
+    else:
+    # Call the query_expense function from db.py
+       total_spending = db.query_expense(category, date= None, start_date= None, end_date= None)
 
-#     if not category_found:
-#         no_such_budget.append(categories_to_remove)
+    if total_spending is not None:
+        if start_date and end_date:
+            date_range_str = f" from {start_date} to {end_date}"
+        else:
+            date_range_str = ""
 
-#     if removed_budget:
-#         print(removed_budget)
-#         removed_budget = ', '.join(removed_budget)
-#         fulfillment_text = f'Removed {removed_budget} from your budget list.'
+        fulfillment_text = f"Your total spending{' on ' + category if category else ''}{date_range_str} is {total_spending}£.\nDo you need anything else?"
+    else:
+        fulfillment_text = "Sorry, I couldn't retrieve the information at the moment."
 
-#     if no_such_budget:
-#         print(no_such_budget)
-#         fulfillment_text = f'Your budget does not have {no_such_budget}.'
-
-#     # Check if the current_budget list is empty
-#     if not current_budget:
-#         fulfillment_text += ' Your budget is empty!'
-
-#     # If there are remaining budgets, display them
-#     else:
-#         budget_str = generic_helper.get_str_from_budget_dict(current_budget)
-#         budget_str = ', '.join(budget_str)
-#         fulfillment_text += f' Here is what is left in your new budget: {budget_str}'
-
-#     return JSONResponse(content={
-#         "fulfillmentText": fulfillment_text
-#     })
+    return JSONResponse(content={
+        "fulfillmentText": fulfillment_text
+    })
