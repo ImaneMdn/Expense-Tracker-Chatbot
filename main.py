@@ -122,13 +122,12 @@ def save_to_db(expense:list):
 
 def add_expense(parameters: dict, session_id: str):
     category = parameters['category']
-    amounts = [item["amount"] for item in parameters["amount"]]
-    # Access the first element of the 'date-time' list and extract the date
-    date = parameters['date-time'][0].split("T")[0]
+    amounts = parameters["amount"]["amount"]
+    date = parameters['date-time'].split("T")[0]
     
     new_expense_dict = {
-            'category': category[0],
-            'amount': amounts[0],
+            'category': category,
+            'amount': amounts,
             'date': date
         }
         
