@@ -86,7 +86,6 @@ def remove_expense(parameters: dict, session_id: str):
     
      
 def complete_expense(parameters: dict, session_id: str):
-    print(inprogress_expense)
     if session_id not in inprogress_expense:
         fulfillment_text = "I'm having a trouble finding your expense. Sorry! Can you place a new expense please?"
     else:
@@ -126,24 +125,22 @@ def add_expense(parameters: dict, session_id: str):
     amounts = [item["amount"] for item in parameters["amount"]]
     # Access the first element of the 'date-time' list and extract the date
     date = parameters['date-time'][0].split("T")[0]
-    if len(category) != len(amounts):
-        fulfillment_text = "Sorry i didn't understand. Can you please specify category and amount"
-    else:
-        new_expense_dict = {
+    
+    new_expense_dict = {
             'category': category[0],
             'amount': amounts[0],
             'date': date
         }
         
-        if session_id in inprogress_expense:
-            inprogress_expense[session_id].append(new_expense_dict)
-        else:
-            inprogress_expense[session_id] = [new_expense_dict]
+    if session_id in inprogress_expense:
+        inprogress_expense[session_id].append(new_expense_dict)
+    else:
+        inprogress_expense[session_id] = [new_expense_dict]
         
-        print(inprogress_expense)
-        expense_str = generic_helper.get_str_from_expense_dict(inprogress_expense[session_id])   
-        if expense_str:
-           expense_list_str = "\n".join(f"- {expense}" for expense in expense_str)
+        
+    expense_str = generic_helper.get_str_from_expense_dict(inprogress_expense[session_id])   
+    if expense_str:
+        expense_list_str = "\n".join(f"- {expense}" for expense in expense_str)
         fulfillment_text = f"Thank you for your expenses. You submitted the following:\n{expense_list_str}\nDo you need anything else?"
     
     return JSONResponse(content={
