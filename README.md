@@ -12,6 +12,22 @@
 ![Capture11](https://github.com/ImaneMdn/Expense-Tracker-Chatbot/assets/115882702/028a15fe-cadc-49bb-8251-66e9acf6b99c)
 ![Capture12](https://github.com/ImaneMdn/Expense-Tracker-Chatbot/assets/115882702/64ece61f-8102-40fb-8fee-3a38d36f1ab5)
 
+## Problem Statement:
+
+Managing personal finances and tracking expenses can be a cumbersome task, often leading to disorganized records and overspending. The need for a streamlined solution to simplify expense tracking, budget management, and financial reporting is evident. Existing tools may lack user-friendly interfaces and real-time insights, contributing to the persistent challenge of maintaining a comprehensive view of one's financial landscape.
+
+## Objective:
+
+To address the identified financial management challenges, I embarked on the creation of an Expense Tracker Chatbot. The objectives are:
+
+1. Define Seamless User Interactions: Utilize Dialogflow to create intuitive intents, entities, and ongoing contexts, ensuring a user-friendly chatbot experience for efficient expense tracking.
+
+2. Enable Database Integration: Develop SQL queries and implement mysql.connector to interact with a MySQL database. This facilitates tasks such as adding expenses, setting budgets, and querying spending summaries in a structured and organized manner.
+
+3. Build a Robust Web Service: Implement a powerful web service using FastAPI, structuring API endpoints to seamlessly handle various chatbot functionalities, ensuring reliability and responsiveness.
+
+4. Facilitate Data Extraction for Reporting: Extract relevant data from the MySQL database to create comprehensive reports using Power BI. These reports cover a spectrum of financial insights, including expenses, budgets, and spending summaries.
+
 ## Directory structure:
 ===================
 1. main.py: Contains Python FastAPI backend code.
